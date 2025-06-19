@@ -1,4 +1,52 @@
-# Nuxt 3 (Nitro) ― バックエンド API 最小サンプル
+# Nuxt Backend Hello
+
+バックエンドサーバー用のNuxt.jsアプリケーション
+
+## ポート8000設定方法
+
+このアプリケーションはバックエンドサーバー用にポート8000で動作するように設定されています。
+
+### 設定済みの方法
+
+1. **package.json設定済み**: `"dev": "nuxt dev --port 8000"`
+   ```bash
+   npm run dev
+   ```
+
+### その他の設定方法
+
+2. **環境変数を使用**:
+   ```bash
+   PORT=8000 npm run dev
+   ```
+
+3. **起動オプションを使用**:
+   ```bash
+   npm run dev -- --port 8000
+   ```
+
+## 起動方法
+
+```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバー起動（ポート8000）
+npm run dev
+```
+
+## API エンドポイント
+
+- `GET /api/hello` - Hello worldメッセージを返す
+
+## アクセス方法
+
+開発サーバー起動後、以下のURLでアクセス可能です：
+
+- フロントエンド: http://localhost:8000
+- API: http://localhost:8000/api/hello
+
+# Nuxt 3 (Nitro) ― バックエンド API 最小サンプル
 
 > **プロジェクト名:** `nuxt-backend-hello`
 >
