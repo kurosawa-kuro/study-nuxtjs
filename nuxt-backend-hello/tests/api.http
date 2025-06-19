@@ -9,3 +9,39 @@ GET http://localhost:8000/api/hello
 ### get hello
 
 GET http://localhost:8000/api/hello
+
+### GET /api/hello - Basic Request
+GET http://localhost:8000/api/hello
+
+### GET /api/hello - With Accept Header
+GET http://localhost:8000/api/hello
+Accept: application/json
+
+### OPTIONS /api/hello - CORS Preflight
+OPTIONS http://localhost:8000/api/hello
+Origin: http://localhost:3000
+Access-Control-Request-Method: GET
+Access-Control-Request-Headers: Content-Type
+
+### GET /api/hello - With Authorization Header
+GET http://localhost:8000/api/hello
+Authorization: Bearer test-token
+Content-Type: application/json
+
+### POST /api/hello - Method Not Allowed Test
+POST http://localhost:8000/api/hello
+Content-Type: application/json
+
+{
+}
+
+### PUT /api/hello - Method Not Allowed Test
+PUT http://localhost:8000/api/hello
+Content-Type: application/json
+
+{
+  "message": "test"
+}
+
+### DELETE /api/hello - Method Not Allowed Test
+DELETE http://localhost:8000/api/hello
