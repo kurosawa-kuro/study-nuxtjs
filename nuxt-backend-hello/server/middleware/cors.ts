@@ -1,3 +1,5 @@
+import { defineEventHandler, setResponseHeaders, setResponseStatus } from 'h3'
+
 export default defineEventHandler((event) => {
   // CORS headers
   setResponseHeaders(event, {

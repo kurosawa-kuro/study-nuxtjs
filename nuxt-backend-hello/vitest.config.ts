@@ -5,7 +5,6 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
-    testTimeout: 10000,
-    hookTimeout: 15000
+    testTimeout: 5000  // supertestは高速なので短縮
   }
 }) 

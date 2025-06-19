@@ -14,4 +14,10 @@ export interface ApiError {
   statusCode: number
   statusMessage: string
   data?: any
+}
+
+// Supertest module declaration
+declare module 'supertest' {
+  import { SuperTest, Test } from 'supertest'
+  export default function supertest(app: any): SuperTest<Test>
 } 
