@@ -1,14 +1,10 @@
-### get hello
+# ========================================
+# Nuxt Backend API Test Suite
+# ========================================
 
-GET http://localhost:8000/api/hello
-
-### get hello
-
-GET http://localhost:8000/api/hello
-
-### get hello
-
-GET http://localhost:8000/api/hello
+# ========================================
+# Hello API Tests
+# ========================================
 
 ### GET /api/hello - Basic Request
 GET http://localhost:8000/api/hello
@@ -17,16 +13,16 @@ GET http://localhost:8000/api/hello
 GET http://localhost:8000/api/hello
 Accept: application/json
 
+### GET /api/hello - With Authorization Header
+GET http://localhost:8000/api/hello
+Authorization: Bearer test-token
+Content-Type: application/json
+
 ### OPTIONS /api/hello - CORS Preflight
 OPTIONS http://localhost:8000/api/hello
 Origin: http://localhost:3000
 Access-Control-Request-Method: GET
 Access-Control-Request-Headers: Content-Type
-
-### GET /api/hello - With Authorization Header
-GET http://localhost:8000/api/hello
-Authorization: Bearer test-token
-Content-Type: application/json
 
 ### POST /api/hello - Method Not Allowed Test
 POST http://localhost:8000/api/hello
@@ -45,3 +41,60 @@ Content-Type: application/json
 
 ### DELETE /api/hello - Method Not Allowed Test
 DELETE http://localhost:8000/api/hello
+
+# ========================================
+# User API Tests
+# ========================================
+
+### GET /api/users - ユーザー一覧取得
+GET http://localhost:8000/api/users
+
+### GET /api/users/1 - 個別ユーザー取得（存在するユーザー）
+GET http://localhost:8000/api/users/1
+
+### GET /api/users/2 - 個別ユーザー取得（存在するユーザー）
+GET http://localhost:8000/api/users/2
+
+### GET /api/users/999 - 個別ユーザー取得（存在しないユーザー）
+GET http://localhost:8000/api/users/999
+
+### GET /api/users/invalid - 個別ユーザー取得（無効なID）
+GET http://localhost:8000/api/users/invalid
+
+### POST /api/users - ユーザー作成（正常）
+POST http://localhost:8000/api/users
+Content-Type: application/json
+
+{
+  "name": "NewUser"
+}
+
+### POST /api/users - ユーザー作成（空の名前）
+POST http://localhost:8000/api/users
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### POST /api/users - ユーザー作成（名前なし）
+POST http://localhost:8000/api/users
+Content-Type: application/json
+
+{
+}
+
+# ========================================
+# Alternative curl Commands (Reference)
+# ========================================
+
+# # ユーザー一覧取得
+# curl http://localhost:8000/api/users
+#
+# # 個別ユーザー取得
+# curl http://localhost:8000/api/users/1
+#
+# # ユーザー作成
+# curl -X POST http://localhost:8000/api/users \
+#   -H "Content-Type: application/json" \
+#   -d '{"name": "NewUser"}'
