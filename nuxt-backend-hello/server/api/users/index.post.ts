@@ -1,14 +1,5 @@
 import { defineEventHandler, readBody, createError } from 'h3'
-
-// メモリ内のユーザーデータ
-let users = [
-  { id: 1, name: 'DefaultUser' },
-  { id: 2, name: 'SystemAdmin' }
-]
-
-interface CreateUserRequest {
-  name: string
-}
+import { userStorage, CreateUserRequest } from '~/server/utils/userStorage'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<CreateUserRequest>(event)
@@ -20,15 +11,7 @@ export default defineEventHandler(async (event) => {
     })
   }
   
-  // 新しいIDを生成（既存の最大ID + 1）
-  const newId = Math.max(...users.map(u => u.id)) + 1
-  
-  const newUser = {
-    id: newId,
-    name: body.name.trim()
-  }
-  
-  users.push(newUser)
+  const newUser = userStorage.createUser(body.name)
   
   return {
     message: 'User created successfully',

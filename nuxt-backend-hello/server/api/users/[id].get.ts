@@ -1,10 +1,5 @@
 import { defineEventHandler, getRouterParam, createError } from 'h3'
-
-// メモリ内のユーザーデータ
-let users = [
-  { id: 1, name: 'DefaultUser' },
-  { id: 2, name: 'SystemAdmin' }
-]
+import { userStorage } from '~/server/utils/userStorage'
 
 export default defineEventHandler((event) => {
   const idParam = getRouterParam(event, 'id')
@@ -25,7 +20,7 @@ export default defineEventHandler((event) => {
     })
   }
   
-  const user = users.find(u => u.id === id)
+  const user = userStorage.getUserById(id)
   
   if (!user) {
     throw createError({

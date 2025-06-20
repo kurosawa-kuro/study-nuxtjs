@@ -48,9 +48,165 @@ export default defineEventHandler(async (event) => {
           }
         }
       },
+      '/api/users': {
+        get: {
+          summary: 'ユーザー一覧取得',
+          description: '全ユーザーの一覧を取得する',
+          tags: ['Users'],
+          responses: {
+            '200': {
+              description: '成功',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      users: {
+                        type: 'array',
+                        items: {
+                          $ref: '#/components/schemas/User'
+                        }
+                      },
+                      count: {
+                        type: 'integer',
+                        example: 2
+                      },
+                      storageType: {
+                        type: 'string',
+                        example: 'memory-variable'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        post: {
+          summary: 'ユーザー作成',
+          description: '新しいユーザーを作成する',
+          tags: ['Users'],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['name'],
+                  properties: {
+                    name: {
+                      type: 'string',
+                      description: 'ユーザー名',
+                      example: 'NewUser'
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            '200': {
+              description: '作成成功',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      message: {
+                        type: 'string',
+                        example: 'User created successfully'
+                      },
+                      user: {
+                        $ref: '#/components/schemas/User'
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            '400': {
+              description: 'バリデーションエラー',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Error'
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      '/api/users/{id}': {
+        get: {
+          summary: '個別ユーザー取得',
+          description: '指定されたIDのユーザーを取得する',
+          tags: ['Users'],
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              description: 'ユーザーID',
+              schema: {
+                type: 'integer',
+                example: 1
+              }
+            }
+          ],
+          responses: {
+            '200': {
+              description: '成功',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/User'
+                  }
+                }
+              }
+            },
+            '400': {
+              description: '無効なID',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Error'
+                  }
+                }
+              }
+            },
+            '404': {
+              description: 'ユーザーが見つかりません',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Error'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     components: {
       schemas: {
+        User: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              description: 'ユーザーID',
+              example: 1
+            },
+            name: {
+              type: 'string',
+              description: 'ユーザー名',
+              example: 'DefaultUser'
+            }
+          },
+          required: ['id', 'name']
+        },
         Error: {
           type: 'object',
           properties: {

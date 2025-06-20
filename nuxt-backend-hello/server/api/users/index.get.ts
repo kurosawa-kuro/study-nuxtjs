@@ -1,15 +1,9 @@
-import { defineEventHandler } from 'h3'
-import { createError } from 'h3'
-
-// メモリ内のユーザーデータ
-let users = [
-  { id: 1, name: 'DefaultUser' },
-  { id: 2, name: 'SystemAdmin' }
-]
+import { defineEventHandler, createError } from 'h3'
+import { userStorage } from '~/server/utils/userStorage'
 
 export default defineEventHandler(() => {
   // 環境変数STORAGE_TYPEを確認
-  const storageType = process.env.STORAGE_TYPE || 'memory-variable'
+  const storageType = userStorage.getStorageType()
   
   if (storageType !== 'memory-variable') {
     throw createError({
@@ -19,8 +13,8 @@ export default defineEventHandler(() => {
   }
   
   return {
-    users,
-    count: users.length,
+    users: userStorage.getAllUsers(),
+    count: userStorage.getCount(),
     storageType
   }
 }) 
